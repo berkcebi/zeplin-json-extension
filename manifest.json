@@ -1,0 +1,9 @@
+{
+    "name": "JSON",
+    "description": "Generates JSON representations of colors and text styles.",
+    "version": "0.1.0",
+    "moduleURL": "index.js",
+    "author": {
+        "name": "Berk Çebi"
+    }
+}
