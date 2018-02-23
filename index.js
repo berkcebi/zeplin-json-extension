@@ -4,15 +4,77 @@ function comment(context, text) {
 }
 
 function styleguideColors(context, colors) {
+    var colorRepresentation = context.getOption("colorRepresentation");
+    var adjustedColors = colors.map(function(color) {
+        return adjustedColor(color, colorRepresentation);
+    });
+
     return {
-        "code": JSON.stringify(colors, null, 2),
-        "language": "json"
+        code: JSON.stringify(adjustedColors, null, 2),
+        language: "json"
     };
 }
 
 function styleguideTextStyles(context, textStyles) {
+    var colorRepresentation = context.getOption("colorRepresentation");
+    var adjustedTextStyles = textStyles.map(function(textStyle) {
+        return adjustedTextStyle(textStyle, colorRepresentation);
+    });
+
     return {
-        "code": JSON.stringify(textStyles, null, 2),
-        "language": "json"
+        code: JSON.stringify(adjustedTextStyles, null, 2),
+        language: "json"
+    };
+}
+
+function exportStyleguideColors(context, colors) {
+    var colors = styleguideColors(context, colors);
+    colors.filename = "colors.json";
+
+    return colors;
+}
+
+function exportStyleguideTextStyles(context, textStyles) {
+    var textStyles = styleguideTextStyles(context, textStyles);
+    textStyles.filename = "textStyles.json";
+
+    return textStyles;
+}
+
+function adjustedColor(color, representation) {
+    switch (representation) {
+        case "rgba":
+            return {
+                name: color.name,
+                red: color.r,
+                green: color.g,
+                blue: color.b,
+                alpha: color.a
+            };
+        case "hex":
+            var hex = color.toHex();
+
+            return {
+                name: color.name,
+                hex: hex.r + hex.g + hex.b,
+                alpha: color.a
+            };
+    }
+}
+
+function adjustedTextStyle(textStyle, colorRepresentation) {
+    return {
+        name: textStyle.name,
+        color: adjustedColor(textStyle.color, colorRepresentation),
+        letterSpacing: textStyle.letterSpacing,
+        lineHeight: textStyle.lineHeight,
+        alignment: textStyle.textAlign,
+        font: {
+            postscriptName: textStyle.fontFace,
+            family: textStyle.fontFamily,
+            size: textStyle.fontSize,
+            weight: textStyle.weightText,
+            stretch: textStyle.fontStretch
+        }
     };
 }

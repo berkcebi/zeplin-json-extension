@@ -5,5 +5,18 @@
     "moduleURL": "index.js",
     "author": {
         "name": "Berk Çebi"
-    }
+    },
+    "options": [{
+        "name": "🎨 Color representation",
+        "type": "picker",
+        "id": "colorRepresentation",
+        "options": [{
+            "name": "RGBA",
+            "value": "rgba"
+        }, {
+            "name": "Hex",
+            "value": "hex"
+        }],
+        "default": "rgba"
+    }]
 }
