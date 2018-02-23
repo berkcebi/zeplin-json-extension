@@ -1,3 +1,5 @@
+var SPACE = 2;
+
 function comment(context, text) {
     // Avoid comments as JSON doesn't support them.
     return "‣ " + text;
@@ -10,7 +12,7 @@ function styleguideColors(context, colors) {
     });
 
     return {
-        code: JSON.stringify(adjustedColors, null, 2),
+        code: JSON.stringify(adjustedColors, null, SPACE),
         language: "json"
     };
 }
@@ -22,7 +24,7 @@ function styleguideTextStyles(context, textStyles) {
     });
 
     return {
-        code: JSON.stringify(adjustedTextStyles, null, 2),
+        code: JSON.stringify(adjustedTextStyles, null, SPACE),
         language: "json"
     };
 }
@@ -41,6 +43,7 @@ function exportStyleguideTextStyles(context, textStyles) {
     return textStyles;
 }
 
+/** Returns a new color object with representation applied. */
 function adjustedColor(color, representation) {
     switch (representation) {
         case "rgba":
@@ -62,6 +65,7 @@ function adjustedColor(color, representation) {
     }
 }
 
+/** Returns a new text style object with color representation applied. */
 function adjustedTextStyle(textStyle, colorRepresentation) {
     return {
         name: textStyle.name,
