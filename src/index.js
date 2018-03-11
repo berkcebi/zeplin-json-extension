@@ -1,4 +1,4 @@
-var SPACE = 2;
+const SPACE = 2;
 
 function comment(context, text) {
     // Avoid comments as JSON doesn't support them.
@@ -6,10 +6,8 @@ function comment(context, text) {
 }
 
 function styleguideColors(context, colors) {
-    var colorRepresentation = context.getOption("colorRepresentation");
-    var adjustedColors = colors.map(function(color) {
-        return adjustedColor(color, colorRepresentation);
-    });
+    const colorRepresentation = context.getOption("colorRepresentation");
+    const adjustedColors = colors.map(color => adjustedColor(color, colorRepresentation));
 
     return {
         code: JSON.stringify(adjustedColors, null, SPACE),
@@ -18,10 +16,8 @@ function styleguideColors(context, colors) {
 }
 
 function styleguideTextStyles(context, textStyles) {
-    var colorRepresentation = context.getOption("colorRepresentation");
-    var adjustedTextStyles = textStyles.map(function(textStyle) {
-        return adjustedTextStyle(textStyle, colorRepresentation);
-    });
+    const colorRepresentation = context.getOption("colorRepresentation");
+    const adjustedTextStyles = textStyles.map(textStyle => adjustedTextStyle(textStyle, colorRepresentation));
 
     return {
         code: JSON.stringify(adjustedTextStyles, null, SPACE),
@@ -30,23 +26,28 @@ function styleguideTextStyles(context, textStyles) {
 }
 
 function exportStyleguideColors(context, colors) {
-    var colors = styleguideColors(context, colors);
-    colors.filename = "colors.json";
+    const colorsObject = styleguideColors(context, colors);
+    colorsObject.filename = "colors.json";
 
-    return colors;
+    return colorsObject;
 }
 
 function exportStyleguideTextStyles(context, textStyles) {
-    var textStyles = styleguideTextStyles(context, textStyles);
-    textStyles.filename = "textStyles.json";
+    const textStylesObject = styleguideTextStyles(context, textStyles);
+    textStylesObject.filename = "textStyles.json";
 
-    return textStyles;
+    return textStylesObject;
 }
 
-/** Returns a new color object with representation applied. */
+/**
+ * Creates new color object with representation applied.
+ * @param {Object} color Color object.
+ * @param {String} representation Color representation option.
+ * @returns {Object} New color object with representation applied.
+ */
 function adjustedColor(color, representation) {
     switch (representation) {
-        case "rgba":
+        case "rgba": {
             return {
                 name: color.name,
                 red: color.r,
@@ -54,18 +55,26 @@ function adjustedColor(color, representation) {
                 blue: color.b,
                 alpha: color.a
             };
-        case "hex":
-            var hex = color.toHex();
+        }
+        case "hex": {
+            const hex = color.toHex();
 
             return {
                 name: color.name,
                 hex: hex.r + hex.g + hex.b,
                 alpha: color.a
             };
+        }
+        default:
     }
 }
 
-/** Returns a new text style object with color representation applied. */
+/**
+ * Creates text style object with color representation applied.
+ * @param {Object} textStyle Text style object.
+ * @param {String} colorRepresentation Color representation option.
+ * @returns {Object} New text style object with color representation applied.
+ */
 function adjustedTextStyle(textStyle, colorRepresentation) {
     return {
         name: textStyle.name,
@@ -82,3 +91,11 @@ function adjustedTextStyle(textStyle, colorRepresentation) {
         }
     };
 }
+
+export default {
+    styleguideColors,
+    styleguideTextStyles,
+    exportStyleguideColors,
+    exportStyleguideTextStyles,
+    comment
+};
