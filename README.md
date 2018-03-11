@@ -66,3 +66,7 @@ Supports either RGB or Hex. Sample colors output, as Hex:
   }
 ]
 ```
+
+## Development
+
+Zeplin JSON extension is developed using [zem](https://github.com/zeplin/zem), Zeplin Extension Manager. zem is a command line tool that lets you quickly create and test extensions.
