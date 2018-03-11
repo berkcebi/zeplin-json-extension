@@ -1,0 +1,46 @@
+{
+    "name": "zeplin-json-extension",
+    "version": "0.1.1",
+    "description": "Generates JSON representations of colors and text styles.",
+    "scripts": {
+        "start": "zem start",
+        "build": "zem build",
+        "clean": "zem clean",
+        "exec": "zem exec"
+    },
+    "author": {
+        "name": "Berk Çebi"
+    },
+    "zeplin": {
+        "displayName": "JSON",
+        "projectTypes": [
+            "web",
+            "ios",
+            "android",
+            "osx"
+        ],
+        "options": [
+            {
+                "name": "🎨 Color representation",
+                "type": "picker",
+                "id": "colorRepresentation",
+                "options": [
+                    {
+                        "name": "RGBA",
+                        "value": "rgba"
+                    },
+                    {
+                        "name": "Hex",
+                        "value": "hex"
+                    }
+                ],
+                "default": "rgba"
+            }
+        ]
+    },
+    "devDependencies": {
+        "@zeplin/eslint-config": "^1.2.2",
+        "eslint": "^4.18.2",
+        "zem": "^0.1.2"
+    }
+}
