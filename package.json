@@ -6,7 +6,8 @@
         "start": "zem start",
         "build": "zem build",
         "clean": "zem clean",
-        "exec": "zem exec"
+        "exec": "zem exec",
+        "publish": "zem publish"
     },
     "author": {
         "name": "Berk Çebi"
@@ -41,6 +42,6 @@
     "devDependencies": {
         "@zeplin/eslint-config": "^1.2.2",
         "eslint": "^4.18.2",
-        "zem": "^0.1.2"
+        "zem": "^0.3.1"
     }
 }
