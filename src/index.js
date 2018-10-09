@@ -16,8 +16,9 @@ function styleguideColors(context, colors) {
 }
 
 function styleguideTextStyles(context, textStyles) {
+    const project = context.project;
     const colorRepresentation = context.getOption("colorRepresentation");
-    const adjustedTextStyles = textStyles.map(textStyle => adjustedTextStyle(textStyle, colorRepresentation));
+    const adjustedTextStyles = textStyles.map(textStyle => adjustedTextStyle(textStyle, project, colorRepresentation));
 
     return {
         code: JSON.stringify(adjustedTextStyles, null, SPACE),
@@ -72,13 +73,13 @@ function adjustedColor(color, representation) {
 /**
  * Creates text style object with color representation applied.
  * @param {Object} textStyle Text style object.
+ * @param {Project} project Project object.
  * @param {String} colorRepresentation Color representation option.
  * @returns {Object} New text style object with color representation applied.
  */
-function adjustedTextStyle(textStyle, colorRepresentation) {
-    return {
+function adjustedTextStyle(textStyle, project, colorRepresentation) {
+    const textStyleObject = {
         name: textStyle.name,
-        color: adjustedColor(textStyle.color, colorRepresentation),
         letterSpacing: textStyle.letterSpacing,
         lineHeight: textStyle.lineHeight,
         alignment: textStyle.textAlign,
@@ -90,6 +91,13 @@ function adjustedTextStyle(textStyle, colorRepresentation) {
             stretch: textStyle.fontStretch
         }
     };
+
+    if (textStyle.color) {
+        const color = project.findColorEqual(textStyle.color) || textStyle.color;
+        textStyleObject.color = adjustedColor(color, colorRepresentation);
+    }
+
+    return textStyleObject;
 }
 
 export default {
