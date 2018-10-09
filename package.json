@@ -1,6 +1,6 @@
 {
     "name": "zeplin-json-extension",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Generates JSON representations of colors and text styles.",
     "scripts": {
         "start": "zem start",
