@@ -1,7 +1,7 @@
 {
     "name": "zeplin-json-extension",
     "version": "0.1.2",
-    "description": "Generates JSON representations of colors and text styles.",
+    "description": "Generates design tokens in JSON, for colors and text styles.",
     "scripts": {
         "start": "zem start",
         "build": "zem build",
@@ -13,7 +13,7 @@
         "name": "Berk Çebi"
     },
     "zeplin": {
-        "displayName": "JSON",
+        "displayName": "JSON Design Tokens",
         "projectTypes": [
             "web",
             "ios",
