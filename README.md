@@ -1,6 +1,8 @@
-# Zeplin JSON Extension
+# JSON Design Tokens Zeplin Extension
 
-Generates simple JSON representations of Styleguide colors and text styles. 🗂
+Generates design tokens in JSON, for colors and text styles. 🗂
+
+Regardless of which tool the designs are exported from, this extension lets you export JSON files from colors and text styles defined in a Zeplin project. Based on internal needs, developers can transform these JSON files and generate code snippets or resources for various platforms.
 
 Sample colors output:
 ```json
