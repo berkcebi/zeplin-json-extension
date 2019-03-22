@@ -1,6 +1,6 @@
 {
     "name": "zeplin-json-extension",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Generates design tokens in JSON, for colors and text styles.",
     "scripts": {
         "start": "zem start",
@@ -8,6 +8,10 @@
         "clean": "zem clean",
         "exec": "zem exec",
         "publish": "zem publish"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/berkcebi/zeplin-json-extension.git"
     },
     "author": {
         "name": "Berk Çebi"
