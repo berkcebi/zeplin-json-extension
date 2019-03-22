@@ -9,6 +9,10 @@
         "exec": "zem exec",
         "publish": "zem publish"
     },
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/berkcebi/zeplin-json-extension.git"
+    },
     "author": {
         "name": "Berk Çebi"
     },
