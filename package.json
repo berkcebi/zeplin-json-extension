@@ -40,6 +40,12 @@
                     }
                 ],
                 "default": "rgba"
+            },
+            {
+                "name": "Include referenced styleguides",
+                "type": "switch",
+                "id": "includeReferencedStyleguides",
+                "default": true
             }
         ]
     },

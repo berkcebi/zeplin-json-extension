@@ -69,6 +69,10 @@ Supports either RGB or Hex. Sample colors output, as Hex:
 ]
 ```
 
+#### Include referenced styleguides
+
+Whether to include colors and text styles from referenced styleguides. For a project, referenced styleguides include the project's linked styleguide and its parent styleguides. For a styleguide, referenced styleguides include the styleguide's parent styleguides.
+
 ## Development
 
 Zeplin JSON extension is developed using [zem](https://github.com/zeplin/zem), Zeplin Extension Manager. zem is a command line tool that lets you quickly create and test extensions.

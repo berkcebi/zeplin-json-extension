@@ -9,7 +9,14 @@ const TEXT_STYLES_FILENAME = "textStyles.json";
 function colors(context) {
     const containerKey = "project" in context ? "project" : "styleguide";
     const container = context[containerKey];
-    const zeplinColors = getContainerReferencedObjects(container, "colors");
+
+    let zeplinColors;
+    if (context.getOption("includeReferencedStyleguides")) {
+        zeplinColors = getContainerReferencedObjects(container, "colors");
+    } else {
+        zeplinColors = container.colors;
+    }
+
     const extensionColors = Color.fromZeplinColors(zeplinColors, context);
 
     return CodeObject.fromJSONObject(extensionColors);
@@ -38,7 +45,14 @@ function exportStyleguideColors(context, zeplinColors) {
 function textStyles(context) {
     const containerKey = "project" in context ? "project" : "styleguide";
     const container = context[containerKey];
-    const zeplinTextStyles = getContainerReferencedObjects(container, "textStyles");
+
+    let zeplinTextStyles;
+    if (context.getOption("includeReferencedStyleguides")) {
+        zeplinTextStyles = getContainerReferencedObjects(container, "textStyles");
+    } else {
+        zeplinTextStyles = container.textStyles;
+    }
+
     const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
 
     return CodeObject.fromJSONObject(extensionTextStyles);
