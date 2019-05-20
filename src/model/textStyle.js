@@ -38,8 +38,8 @@ export default class TextStyle {
     }
 
     static fromZeplinTextStyle(zeplinTextStyle, context) {
-        const containerType = "project" in context ? "project" : "styleguide";
-        const container = context[containerType];
+        const containerKey = "project" in context ? "project" : "styleguide";
+        const container = context[containerKey];
 
         let color;
         if (zeplinTextStyle.color) {

@@ -7,9 +7,10 @@ const COLORS_FILENAME = "colors.json";
 const TEXT_STYLES_FILENAME = "textStyles.json";
 
 function colors(context) {
-    const containerType = "project" in context ? "project" : "styleguide";
-    const container = context[containerType];
-    const extensionColors = Color.fromZeplinColors(container.colors, context);
+    const containerKey = "project" in context ? "project" : "styleguide";
+    const container = context[containerKey];
+    const zeplinColors = getContainerReferencedObjects(container, "colors");
+    const extensionColors = Color.fromZeplinColors(zeplinColors, context);
 
     return CodeObject.fromJSONObject(extensionColors);
 }
@@ -35,9 +36,10 @@ function exportStyleguideColors(context, zeplinColors) {
 }
 
 function textStyles(context) {
-    const containerType = "project" in context ? "project" : "styleguide";
-    const container = context[containerType];
-    const extensionTextStyles = TextStyle.fromZeplinTextStyles(container.textStyles, context);
+    const containerKey = "project" in context ? "project" : "styleguide";
+    const container = context[containerKey];
+    const zeplinTextStyles = getContainerReferencedObjects(container, "textStyles");
+    const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
 
     return CodeObject.fromJSONObject(extensionTextStyles);
 }
@@ -66,6 +68,17 @@ function exportStyleguideTextStyles(context, zeplinTextStyles) {
 function comment(_, text) {
     // Avoid comments as JSON doesn't support them.
     return "‣ " + text;
+}
+
+function getContainerReferencedObjects(container, key) {
+    const containerObjects = container[key];
+
+    const referencedStyleguide = container.linkedStyleguide || container.parent;
+    if (!referencedStyleguide) {
+        return containerObjects;
+    }
+
+    return containerObjects.concat(getContainerReferencedObjects(referencedStyleguide, key));
 }
 
 export default {
