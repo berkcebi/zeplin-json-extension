@@ -1,109 +1,108 @@
-const SPACE = 2;
+import Color from "./model/color";
+import TextStyle from "./model/textStyle";
+import CodeObject from "./model/codeObject";
+import CodeExportObject from "./model/codeExportObject";
 
-function comment(context, text) {
+const COLORS_FILENAME = "colors.json";
+const TEXT_STYLES_FILENAME = "textStyles.json";
+
+function colors(context) {
+    const containerKey = "project" in context ? "project" : "styleguide";
+    const container = context[containerKey];
+
+    let zeplinColors;
+    if (context.getOption("includeReferencedStyleguides")) {
+        zeplinColors = getContainerReferencedObjects(container, "colors");
+    } else {
+        zeplinColors = container.colors;
+    }
+
+    const extensionColors = Color.fromZeplinColors(zeplinColors, context);
+
+    return CodeObject.fromJSONObject(extensionColors);
+}
+
+// TODO: Remove after 2020/01/01.
+function styleguideColors(context, zeplinColors) {
+    const extensionColors = Color.fromZeplinColors(zeplinColors, context);
+
+    return CodeObject.fromJSONObject(extensionColors);
+}
+
+function exportColors(context) {
+    const colorsCodeObject = colors(context);
+
+    return CodeExportObject.fromCodeObject(colorsCodeObject, COLORS_FILENAME);
+}
+
+// TODO: Remove after 2020/01/01.
+function exportStyleguideColors(context, zeplinColors) {
+    const colorsCodeObject = styleguideColors(context, zeplinColors);
+
+    return CodeExportObject.fromCodeObject(colorsCodeObject, COLORS_FILENAME);
+}
+
+function textStyles(context) {
+    const containerKey = "project" in context ? "project" : "styleguide";
+    const container = context[containerKey];
+
+    let zeplinTextStyles;
+    if (context.getOption("includeReferencedStyleguides")) {
+        zeplinTextStyles = getContainerReferencedObjects(container, "textStyles");
+    } else {
+        zeplinTextStyles = container.textStyles;
+    }
+
+    const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
+
+    return CodeObject.fromJSONObject(extensionTextStyles);
+}
+
+// TODO: Remove after 2020/01/01.
+function styleguideTextStyles(context, zeplinTextStyles) {
+    const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
+
+    return CodeObject.fromJSONObject(extensionTextStyles);
+}
+
+function exportTextStyles(context) {
+    const textStylesCodeObject = textStyles(context);
+
+    return CodeExportObject.fromCodeObject(textStylesCodeObject, TEXT_STYLES_FILENAME);
+}
+
+// TODO: Remove after 2020/01/01.
+function exportStyleguideTextStyles(context, zeplinTextStyles) {
+    const textStylesCodeObject = styleguideTextStyles(context, zeplinTextStyles);
+
+    return CodeExportObject.fromCodeObject(textStylesCodeObject, TEXT_STYLES_FILENAME);
+}
+
+// TODO: Remove after 2020/01/01.
+function comment(_, text) {
     // Avoid comments as JSON doesn't support them.
     return "‣ " + text;
 }
 
-function styleguideColors(context, colors) {
-    const colorRepresentation = context.getOption("colorRepresentation");
-    const adjustedColors = colors.map(color => adjustedColor(color, colorRepresentation));
+function getContainerReferencedObjects(container, key) {
+    const containerObjects = container[key];
 
-    return {
-        code: JSON.stringify(adjustedColors, null, SPACE),
-        language: "json"
-    };
-}
-
-function styleguideTextStyles(context, textStyles) {
-    const project = context.project;
-    const colorRepresentation = context.getOption("colorRepresentation");
-    const adjustedTextStyles = textStyles.map(textStyle => adjustedTextStyle(textStyle, project, colorRepresentation));
-
-    return {
-        code: JSON.stringify(adjustedTextStyles, null, SPACE),
-        language: "json"
-    };
-}
-
-function exportStyleguideColors(context, colors) {
-    const colorsObject = styleguideColors(context, colors);
-    colorsObject.filename = "colors.json";
-
-    return colorsObject;
-}
-
-function exportStyleguideTextStyles(context, textStyles) {
-    const textStylesObject = styleguideTextStyles(context, textStyles);
-    textStylesObject.filename = "textStyles.json";
-
-    return textStylesObject;
-}
-
-/**
- * Creates new color object with representation applied.
- * @param {Object} color Color object.
- * @param {String} representation Color representation option.
- * @returns {Object} New color object with representation applied.
- */
-function adjustedColor(color, representation) {
-    switch (representation) {
-        case "rgba": {
-            return {
-                name: color.name,
-                red: color.r,
-                green: color.g,
-                blue: color.b,
-                alpha: color.a
-            };
-        }
-        case "hex": {
-            const hex = color.toHex();
-
-            return {
-                name: color.name,
-                hex: hex.r + hex.g + hex.b,
-                alpha: color.a
-            };
-        }
-        default:
-    }
-}
-
-/**
- * Creates text style object with color representation applied.
- * @param {Object} textStyle Text style object.
- * @param {Project} project Project object.
- * @param {String} colorRepresentation Color representation option.
- * @returns {Object} New text style object with color representation applied.
- */
-function adjustedTextStyle(textStyle, project, colorRepresentation) {
-    const textStyleObject = {
-        name: textStyle.name,
-        letterSpacing: textStyle.letterSpacing,
-        lineHeight: textStyle.lineHeight,
-        alignment: textStyle.textAlign,
-        font: {
-            postscriptName: textStyle.fontFace,
-            family: textStyle.fontFamily,
-            size: textStyle.fontSize,
-            weight: textStyle.weightText,
-            stretch: textStyle.fontStretch
-        }
-    };
-
-    if (textStyle.color) {
-        const color = project.findColorEqual(textStyle.color) || textStyle.color;
-        textStyleObject.color = adjustedColor(color, colorRepresentation);
+    const referencedStyleguide = container.linkedStyleguide || container.parent;
+    if (!referencedStyleguide) {
+        return containerObjects;
     }
 
-    return textStyleObject;
+    return containerObjects.concat(getContainerReferencedObjects(referencedStyleguide, key));
 }
 
 export default {
+    colors,
     styleguideColors,
-    styleguideTextStyles,
+    exportColors,
     exportStyleguideColors,
+    textStyles,
+    styleguideTextStyles,
+    exportTextStyles,
     exportStyleguideTextStyles,
     comment
 };
