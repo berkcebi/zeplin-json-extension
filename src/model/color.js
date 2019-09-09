@@ -1,5 +1,12 @@
 export default class Color {
-    constructor({ name, red, green, blue, hex, alpha }) {
+    constructor({
+        name,
+        red,
+        green,
+        blue,
+        hex,
+        alpha
+    }) {
         Object.assign(this, {
             name,
             red,
@@ -48,9 +55,7 @@ export default class Color {
     }
 
     static fromZeplinColors(zeplinColors, context) {
-        return zeplinColors.map(zeplinColor =>
-            Color.fromZeplinColor(zeplinColor, context)
-        );
+        return zeplinColors.map(zeplinColor => Color.fromZeplinColor(zeplinColor, context));
     }
 
     static rgbaToHsla(red, green, blue, a) {
