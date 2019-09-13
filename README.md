@@ -53,7 +53,7 @@ Sample text style output:
 
 #### Color representation
 
-Supports either RGB or Hex. Sample colors output, as Hex:
+Supports RGB, HSLA and Hex. Sample colors output, as Hex:
 ```json
 [
   {

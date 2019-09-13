@@ -37,6 +37,10 @@
                     {
                         "name": "Hex",
                         "value": "hex"
+                    },
+                    {
+                        "name": "HSLA",
+                        "value": "hsla"
                     }
                 ],
                 "default": "rgba"
