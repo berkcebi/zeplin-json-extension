@@ -5,6 +5,7 @@ export default class Color {
         green,
         blue,
         hex,
+        hsla,
         alpha
     }) {
         Object.assign(this, {
@@ -13,6 +14,7 @@ export default class Color {
             green,
             blue,
             hex,
+            hsla,
             alpha
         });
     }
