@@ -1,3 +1,5 @@
+⚠️ **Zeplin now has a built-in feature to export design tokens** (colors, text styles and spacing values) **in JSON**—either using the Zeplin API or as a .zip package. [Learn more.](https://support.zeplin.io/en/articles/5160298-export-design-tokens)
+
 # JSON Design Tokens Zeplin Extension
 
 Generates design tokens in JSON, for colors and text styles. 🗂
