@@ -1,13 +1,9 @@
 export default class CodeExportObject {
-    constructor({
-        code,
-        language,
-        filename
-    }) {
+    constructor({ code, language, filename }) {
         Object.assign(this, {
             code,
             language,
-            filename
+            filename,
         });
     }
 
@@ -15,7 +11,7 @@ export default class CodeExportObject {
         return new CodeExportObject({
             code: codeObject.code,
             language: codeObject.language,
-            filename
+            filename,
         });
     }
 }

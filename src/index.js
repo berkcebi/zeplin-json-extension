@@ -48,19 +48,28 @@ function textStyles(context) {
 
     let zeplinTextStyles;
     if (context.getOption("includeReferencedStyleguides")) {
-        zeplinTextStyles = getContainerReferencedObjects(container, "textStyles");
+        zeplinTextStyles = getContainerReferencedObjects(
+            container,
+            "textStyles",
+        );
     } else {
         zeplinTextStyles = container.textStyles;
     }
 
-    const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
+    const extensionTextStyles = TextStyle.fromZeplinTextStyles(
+        zeplinTextStyles,
+        context,
+    );
 
     return CodeObject.fromJSONObject(extensionTextStyles);
 }
 
 // TODO: Remove after 2020/01/01.
 function styleguideTextStyles(context, zeplinTextStyles) {
-    const extensionTextStyles = TextStyle.fromZeplinTextStyles(zeplinTextStyles, context);
+    const extensionTextStyles = TextStyle.fromZeplinTextStyles(
+        zeplinTextStyles,
+        context,
+    );
 
     return CodeObject.fromJSONObject(extensionTextStyles);
 }
@@ -68,14 +77,23 @@ function styleguideTextStyles(context, zeplinTextStyles) {
 function exportTextStyles(context) {
     const textStylesCodeObject = textStyles(context);
 
-    return CodeExportObject.fromCodeObject(textStylesCodeObject, TEXT_STYLES_FILENAME);
+    return CodeExportObject.fromCodeObject(
+        textStylesCodeObject,
+        TEXT_STYLES_FILENAME,
+    );
 }
 
 // TODO: Remove after 2020/01/01.
 function exportStyleguideTextStyles(context, zeplinTextStyles) {
-    const textStylesCodeObject = styleguideTextStyles(context, zeplinTextStyles);
+    const textStylesCodeObject = styleguideTextStyles(
+        context,
+        zeplinTextStyles,
+    );
 
-    return CodeExportObject.fromCodeObject(textStylesCodeObject, TEXT_STYLES_FILENAME);
+    return CodeExportObject.fromCodeObject(
+        textStylesCodeObject,
+        TEXT_STYLES_FILENAME,
+    );
 }
 
 // TODO: Remove after 2020/01/01.
@@ -92,7 +110,9 @@ function getContainerReferencedObjects(container, key) {
         return containerObjects;
     }
 
-    return containerObjects.concat(getContainerReferencedObjects(referencedStyleguide, key));
+    return containerObjects.concat(
+        getContainerReferencedObjects(referencedStyleguide, key),
+    );
 }
 
 export default {
@@ -104,5 +124,5 @@ export default {
     styleguideTextStyles,
     exportTextStyles,
     exportStyleguideTextStyles,
-    comment
+    comment,
 };

@@ -16,6 +16,14 @@
     "author": {
         "name": "Berk Çebi"
     },
+    "dependencies": {
+        "zem": "^1.0.6"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^9.0.0",
+        "prettier": "^3.0.3"
+    },
     "zeplin": {
         "displayName": "JSON Design Tokens",
         "platforms": [
@@ -52,10 +60,5 @@
                 "default": true
             }
         ]
-    },
-    "devDependencies": {
-        "@zeplin/eslint-config": "^1.2.2",
-        "eslint": "^4.18.2",
-        "zem": "^0.4.2"
     }
 }

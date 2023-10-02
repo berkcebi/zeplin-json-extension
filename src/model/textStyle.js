@@ -1,39 +1,26 @@
 import Color from "./color";
 
 class Font {
-    constructor({
-        postscriptName,
-        family,
-        size,
-        weight,
-        stretch
-    }) {
+    constructor({ postscriptName, family, size, weight, stretch }) {
         Object.assign(this, {
             postscriptName,
             family,
             size,
             weight,
-            stretch
+            stretch,
         });
     }
 }
 
 export default class TextStyle {
-    constructor({
-        name,
-        letterSpacing,
-        lineHeight,
-        alignment,
-        font,
-        color
-    }) {
+    constructor({ name, letterSpacing, lineHeight, alignment, font, color }) {
         Object.assign(this, {
             name,
             letterSpacing,
             lineHeight,
             alignment,
             font,
-            color
+            color,
         });
     }
 
@@ -43,7 +30,9 @@ export default class TextStyle {
 
         let color;
         if (zeplinTextStyle.color) {
-            const zeplinColor = container.findColorEqual(zeplinTextStyle.color) || zeplinTextStyle.color;
+            const zeplinColor =
+                container.findColorEqual(zeplinTextStyle.color) ||
+                zeplinTextStyle.color;
 
             color = Color.fromZeplinColor(zeplinColor, context);
         }
@@ -53,7 +42,7 @@ export default class TextStyle {
             family: zeplinTextStyle.fontFamily,
             size: zeplinTextStyle.fontSize,
             weight: zeplinTextStyle.weightText,
-            stretch: zeplinTextStyle.fontStretch
+            stretch: zeplinTextStyle.fontStretch,
         });
 
         return new TextStyle({
@@ -62,11 +51,13 @@ export default class TextStyle {
             lineHeight: zeplinTextStyle.lineHeight,
             alignment: zeplinTextStyle.textAlign,
             font,
-            color
+            color,
         });
     }
 
     static fromZeplinTextStyles(zeplinTextStyles, context) {
-        return zeplinTextStyles.map(zeplinTextStyle => TextStyle.fromZeplinTextStyle(zeplinTextStyle, context));
+        return zeplinTextStyles.map((zeplinTextStyle) =>
+            TextStyle.fromZeplinTextStyle(zeplinTextStyle, context),
+        );
     }
 }

@@ -1,13 +1,5 @@
 export default class Color {
-    constructor({
-        name,
-        red,
-        green,
-        blue,
-        hex,
-        hsla,
-        alpha
-    }) {
+    constructor({ name, red, green, blue, hex, hsla, alpha }) {
         Object.assign(this, {
             name,
             red,
@@ -15,7 +7,7 @@ export default class Color {
             blue,
             hex,
             hsla,
-            alpha
+            alpha,
         });
     }
 
@@ -29,7 +21,7 @@ export default class Color {
                     red: zeplinColor.r,
                     green: zeplinColor.g,
                     blue: zeplinColor.b,
-                    alpha: zeplinColor.a
+                    alpha: zeplinColor.a,
                 });
             }
             case "hex": {
@@ -38,7 +30,7 @@ export default class Color {
                 return new Color({
                     name: zeplinColor.name,
                     hex: hex.r + hex.g + hex.b,
-                    alpha: zeplinColor.a
+                    alpha: zeplinColor.a,
                 });
             }
             case "hsla": {
@@ -48,8 +40,8 @@ export default class Color {
                         zeplinColor.r,
                         zeplinColor.g,
                         zeplinColor.b,
-                        zeplinColor.a
-                    )
+                        zeplinColor.a,
+                    ),
                 });
             }
             default:
@@ -57,7 +49,9 @@ export default class Color {
     }
 
     static fromZeplinColors(zeplinColors, context) {
-        return zeplinColors.map(zeplinColor => Color.fromZeplinColor(zeplinColor, context));
+        return zeplinColors.map((zeplinColor) =>
+            Color.fromZeplinColor(zeplinColor, context),
+        );
     }
 
     static rgbaToHsla(red, green, blue, a) {
